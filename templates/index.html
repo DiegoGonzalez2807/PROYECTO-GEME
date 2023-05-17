@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Biblioteca digital con metadatos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Biblioteca digital</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ url_for('index') }}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('agregar') }}">Agregar libro</a>
+                </li>
+            </ul>
+            <form class="form-inline ml-auto" method="get" action="{{ url_for('index') }}">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="titulo" placeholder="Título" value="{{ titulo }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="autor" placeholder="Autor" value="{{ autor }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="fecha" placeholder="Fecha" value="{{ fecha }}">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
+                </div>
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <h1>Bienvenido a la biblioteca digital</h1>
+        <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
+        <div class="tags">
+            {% if titulo %}
+            <span class="badge badge-primary">{{ titulo }} <a href="{{ url_for('index', titulo='') }}"><i class="fas fa-times"></i></a></span>
+            {% endif %}
+            {% if autor %}
+            <span class="badge badge-primary">{{ autor }} <a href="{{ url_for('index', autor='') }}"><i class="fas fa-times"></i></a></span>
+            {% endif %}
+            {% if fecha %}
+            <span class="badge badge-primary">{{ fecha }} <a href="{{ url_for('index', fecha='') }}"><i class="fas fa-times"></i></a></span>
+            {% endif %}
+            {% if tema %}
+            <span class="badge badge-primary">{{ tema }} <a href="{{ url_for('index', tema='') }}"><i class="fas fa-times"></i></a></span>
+            {% endif %}
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Fecha</th>
+                    <th>Tema</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for metadato in metadatos %}
+                <tr>
+                    <td>{{ metadato[0] }}</td>
+                    <td>{{ metadato[1] }}</td>
+                    <td>{{ metadato[2] }}</td>
+                    <td>{{ metadato[3] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar', id=loop.index0) }}" class="btn btn-primary">Editar</a>
+                        <a href="{{ url_for('eliminar', id=loop.index0) }}" class="btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+</html>
