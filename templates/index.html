@@ -42,7 +42,7 @@
         }
 
         main{
-            padding-top: 20px;
+            padding-top: 100px;
         }
 
         .input-field{
@@ -52,7 +52,7 @@
         }
 
         .input-field input {
-            width: 350px;
+            width: 150px;
             height: 60px;
             border-radius: 6px;
             font-size: 18px;
@@ -87,7 +87,8 @@
             align-items: center; /* Centra horizontalmente los elementos */
             justify-content: center; /* Centra verticalmente los elementos */
             height: 80vh; /* Establece la altura de la sección según tus necesidades */
-            font-size: 25px;
+            font-size: 20px;
+            padding-top: 250px;
         }
 
         h1{
@@ -105,11 +106,6 @@
             padding-bottom: 30px;
         }
 
-        td{
-            padding-right: 70px;
-        }
-
-
         
     </style>
     <head>
@@ -118,68 +114,77 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
         <body>
-        <h1>Búsqueda de Libros</h1>
-        <form action="{{ url_for('index') }}" method="GET">
-            <label>Título:</label>
-            <input type="text" name="titulo" value="{{ titulo }}">
-            <label>Autor:</label>
-            <input type="text" name="autor" value="{{ autor }}">
-            <label>Fecha:</label>
-            <input type="text" name="fecha" value="{{ fecha }}">
-            <label>Tema:</label>
-            <input type="text" name="tema" value="{{ tema }}">
-            <label>Tipo de contenido:</label>
-            <input type="text" name="tipo_contenido" value="{{ tipo_contenido }}">
-            <label>Palabras Clave:</label>
-            <input type="text" name="palabras_clave" value="{{ palabras_clave }}">
-            <label>Descripción:</label>
-            <input type="text" name="descripcion" value="{{ descripcion }}">
-            <label>Idioma:</label>
-            <input type="text" name="idioma" value="{{ idioma }}">
-            <label>Licencia:</label>
-            <input type="text" name="licencia" value="{{ licencia }}">
-            <label>Número de Páginas:</label>
-            <input type="text" name="num_paginas" value="{{ num_paginas }}">
-            <label>Formato:</label>
-            <input type="text" name="formato" value="{{ formato }}">
-            <input type="submit" value="Buscar">
-        </form>
-        <h2>Resultados:</h2>
-        <table>
-            <tr>
-                <th>Título</th>
-                <th>Autor</th>
-                <th>Fecha</th>
-                <th>Tema</th>
-                <th>Tipo de Contenido</th>
-                <th>Palabras Clave</th>
-                <th>Descripción</th>
-                <th>Idioma</th>
-                <th>Licencia</th>
-                <th>Número de Páginas</th>
-                <th>Formato</th>
-                <th>Acciones</th>
-            </tr>
-            {% for metadato in metadatos %}
-            <tr>
-                <td>{{ metadato[0] }}</td>
-                <td>{{ metadato[1] }}</td>
-                <td>{{ metadato[2] }}</td>
-                <td>{{ metadato[3] }}</td>
-                <td>{{ metadato[4] }}</td>
-                <td>{{ metadato[5] }}</td>
-                <td>{{ metadato[6] }}</td>
-                <td>{{ metadato[7] }}</td>
-                <td>{{ metadato[8] }}</td>
-                <td>{{ metadato[9] }}</td>
-                <td>{{ metadato[10] }}</td>
-                <td>
-                    <a href="{{ url_for('editar', id=loop.index0) }}">Editar</a>
-                    <a href="{{ url_for('eliminar', id=loop.index0) }}">Eliminar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-        <a href="{{ url_for('agregar') }}">Agregar Metadatos</a>
+            <header>
+                <div class="logo">
+                    <a href="#">Biblioteca Digital</a>
+                </div>
+                <nav>
+                    <a href="{{ url_for('index') }}">Inicio</a>
+                    <a href="{{ url_for('agregar') }}">Agregar libro</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </header>
+            <main>
+                <section id="busqueda">
+                    <form action="{{ url_for('index') }}" method="GET">
+                        <div class="input-field">
+                            <input type="text" class="form-control" name="titulo" placeholder="Título" value="{{ titulo }}">
+                            <input type="text" class="form-control" name="autor" placeholder="Autor" value="{{ autor }}">
+                            <input type="text" class="form-control" name="fecha" placeholder="Fecha" value="{{ fecha }}">
+                            <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
+                            <input type="text" class="form-control" name="tipo_contenido" placeholder="Tipo Contenido" value="{{ tipo_contenido }}">
+                            <input type="text" class="form-control" name="palabras_clave" placeholder="Palabras Clave" value="{{ palabras_clave }}">
+                            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" value="{{ descripcion }}">
+                            <input type="text" class="form-control" name="idioma" placeholder="idioma" value="{{ idioma }}">
+                            <input type="text" class="form-control" name="num_paginas" placeholder="num_paginas" value="{{ num_paginas }}">
+                            <input type="text" class="form-control" name="formato" placeholder="formato" value="{{ formato }}">
+                            <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
+                            <button type="submit" class="btn">Buscar</button>
+                        </div>
+                    </form>
+                </section>
+                <section id="biblioteca">
+                    <h1>Bienvenido a la biblioteca digital</h1>
+                    <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
+                    <h1>Búsqueda de Libros</h1>
+                    <h2>Resultados:</h2>
+                    <table>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Fecha</th>
+                            <th>Tema</th>
+                            <th>Tipo de Contenido</th>
+                            <th>Palabras Clave</th>
+                            <th>Descripción</th>
+                            <th>Idioma</th>
+                            <th>Licencia</th>
+                            <th>Número de Páginas</th>
+                            <th>Formato</th>
+                            <th>Acciones</th>
+                        </tr>
+                        {% for metadato in metadatos %}
+                        <tr>
+                            <td>{{ metadato[0] }}</td>
+                            <td>{{ metadato[1] }}</td>
+                            <td>{{ metadato[2] }}</td>
+                            <td>{{ metadato[3] }}</td>
+                            <td>{{ metadato[4] }}</td>
+                            <td>{{ metadato[5] }}</td>
+                            <td>{{ metadato[6] }}</td>
+                            <td>{{ metadato[7] }}</td>
+                            <td>{{ metadato[8] }}</td>
+                            <td>{{ metadato[9] }}</td>
+                            <td>{{ metadato[10] }}</td>
+                            <td>
+                                <a href="{{ url_for('editar', id=loop.index0) }}">Editar</a>
+                                <a href="{{ url_for('eliminar', id=loop.index0) }}">Eliminar</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <a href="{{ url_for('agregar') }}">Agregar Metadatos</a>
+                </section>
+            </main>
     </body>
 </html>
