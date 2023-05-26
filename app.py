@@ -41,6 +41,14 @@ def index():
     autor = request.args.get('autor', '')
     fecha = request.args.get('fecha', '')
     tema = request.args.get('tema', '')
+    tipo_contenido = request.args.get('tipo_contenido', '')
+    palabras_clave = request.args.get('palabras_clave', '')
+    descripcion = request.args.get('descripcion', '')
+    idioma = request.args.get('idioma', '')
+    licencia = request.args.get('licencia', '')
+    num_paginas = request.args.get('num_paginas', '')
+    formato = request.args.get('formato', '')
+    
     if titulo:
         metadatos = [row for row in metadatos if titulo.lower() in row[0].lower()]
     if autor:
@@ -49,10 +57,27 @@ def index():
         metadatos = [row for row in metadatos if fecha.lower() in row[2].lower()]
     if tema:
         metadatos = [row for row in metadatos if tema.lower() in row[3].lower()]
+    if tipo_contenido:
+        metadatos = [row for row in metadatos if tipo_contenido.lower() in row[4].lower()]
+    if palabras_clave:
+        metadatos = [row for row in metadatos if palabras_clave.lower() in row[5].lower()]
+    if descripcion:
+        metadatos = [row for row in metadatos if descripcion.lower() in row[6].lower()]
+    if idioma:
+        metadatos = [row for row in metadatos if idioma.lower() in row[7].lower()]
+    if licencia:
+        metadatos = [row for row in metadatos if licencia.lower() in row[8].lower()]
+    if num_paginas:
+        metadatos = [row for row in metadatos if num_paginas.lower() in row[9].lower()]
+    if formato:
+        metadatos = [row for row in metadatos if formato.lower() in row[10].lower()]
+    
     # Mostrar solo los primeros 10 metadatos
     metadatos = metadatos[:10]
     # Renderizar la plantilla index.html con los metadatos filtrados y los tags correspondientes
-    return render_template('index.html', metadatos=metadatos, titulo=titulo, autor=autor, fecha=fecha, tema=tema)
+    return render_template('index.html', metadatos=metadatos, titulo=titulo, autor=autor, fecha=fecha, tema=tema,
+                           tipo_contenido=tipo_contenido, palabras_clave=palabras_clave, descripcion=descripcion,
+                           idioma=idioma, licencia=licencia, num_paginas=num_paginas, formato=formato)
 
 # Ruta de la página para agregar metadatos
 @app.route('/agregar', methods=['GET', 'POST'])
@@ -63,10 +88,18 @@ def agregar():
         autor = request.form['autor']
         fecha = request.form['fecha']
         tema = request.form['tema']
+        tipo_contenido = request.form['tipo_contenido']
+        palabras_clave = request.form['palabras_clave']
+        descripcion = request.form['descripcion']
+        idioma = request.form['idioma']
+        licencia = request.form['licencia']
+        num_paginas = request.form['num_paginas']
+        formato = request.form['formato']
         # Agregar los datos al archivo CSV
         with open('libros.csv', 'a', newline='') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            writer.writerow([titulo, autor, fecha, tema])
+            writer.writerow([titulo, autor, fecha, tema, tipo_contenido, palabras_clave, descripcion, idioma,
+                             licencia, num_paginas, formato])
         # Redirigir a la página de inicio
         return redirect(url_for('index'))
     else:
@@ -82,11 +115,19 @@ def editar(id):
         autor = request.form['autor']
         fecha = request.form['fecha']
         tema = request.form['tema']
+        tipo_contenido = request.form['tipo_contenido']
+        palabras_clave = request.form['palabras_clave']
+        descripcion = request.form['descripcion']
+        idioma = request.form['idioma']
+        licencia = request.form['licencia']
+        num_paginas = request.form['num_paginas']
+        formato = request.form['formato']
         # Actualizar los datos en el archivo CSV
         with open('libros.csv', 'r', newline='') as csvfile:
             reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             metadatos = [row for row in reader]
-        metadatos[id] = [titulo, autor, fecha, tema]
+        metadatos[id] = [titulo, autor, fecha, tema, tipo_contenido, palabras_clave, descripcion, idioma,
+                         licencia, num_paginas, formato]
         with open('libros.csv', 'w', newline='') as csvfile:
             writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             for metadato in metadatos:
