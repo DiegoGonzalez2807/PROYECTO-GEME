@@ -42,7 +42,7 @@
         }
 
         main{
-            padding-top: 100px;
+            padding-top: 7px;
         }
 
         .input-field{
@@ -88,7 +88,7 @@
             justify-content: center; /* Centra verticalmente los elementos */
             height: 80vh; /* Establece la altura de la sección según tus necesidades */
             font-size: 20px;
-            padding-top: 250px;
+            padding-top: 350px;
         }
 
         h1{
@@ -101,12 +101,33 @@
             margin: 0;
         }
 
-        p{
+
+        table {
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        th, td {
+        border: 1px solid whitesmoke; /* Establece un borde sólido a las celdas */
+        padding: 8px;
+        text-align: left;
+        }
+
+        #busqueda h1{
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        #busqueda p{
+            display: flex;
+            align-items: center;
+            text-align: center;
             font-size: 25px;
             padding-bottom: 30px;
         }
-
         
+
     </style>
     <head>
         <title>Biblioteca digital con metadatos</title>
@@ -126,6 +147,8 @@
             </header>
             <main>
                 <section id="busqueda">
+                    <h1>Bienvenido a la biblioteca digital</h1>
+                    <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
                     <form action="{{ url_for('index') }}" method="GET">
                         <div class="input-field">
                             <input type="text" class="form-control" name="titulo" placeholder="Título" value="{{ titulo }}">
@@ -144,8 +167,6 @@
                     </form>
                 </section>
                 <section id="biblioteca">
-                    <h1>Bienvenido a la biblioteca digital</h1>
-                    <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
                     <h1>Búsqueda de Libros</h1>
                     <h2>Resultados:</h2>
                     <table>
