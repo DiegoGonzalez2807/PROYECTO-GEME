@@ -3,6 +3,32 @@ from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
+# Base de datos de usuarios quemados
+users = {'usuario1': 'contrasena1', 'usuario2': 'contraseña2', 'usuario3': 'contraseña3', 'usuario4': 'contraseña4', 'usuario5': 'contraseña5'}
+usersInfo = {'usuario1': {'nombre': 'Usuario 1', 'edad': 25, 'nacionalidad': 'México'}, 
+            'usuario2': {'nombre': 'Usuario 2', 'edad': 30, 'nacionalidad': 'España'}, 
+            'usuario3': {'nombre': 'Usuario 3', 'edad': 28, 'nacionalidad': 'Estados Unidos'}, 
+            'usuario4': {'nombre': 'Usuario 4', 'edad': 32, 'nacionalidad': 'Argentina'}, 
+            'usuario5': {'nombre': 'Usuario 5', 'edad': 27, 'nacionalidad': 'Brasil'}}
+
+# Ruta de inicio de sesión
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Obtener el nombre de usuario y la contraseña ingresados por el usuario
+        username = request.form['username']
+        password = request.form['password']
+        # Verificar si el usuario y la contraseña coinciden
+        if username in users and password == users[username]:
+            # Inicio de sesión exitoso, redirigir a la página principal
+            return redirect(url_for('index'))
+        else:
+            # Nombre de usuario o contraseña incorrectos, mostrar mensaje de error
+            return render_template('login.html', error_message='Nombre de usuario o contraseña incorrectos.')
+    else:
+        # Mostrar la página de inicio de sesión
+        return render_template('login.html')
+
 # Ruta de la página de inicio
 @app.route('/')
 def index():
