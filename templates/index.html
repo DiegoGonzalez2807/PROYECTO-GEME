@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
     <style>
         *{
             margin: 0;
@@ -13,6 +14,7 @@
             background-color: #232324;
             color: aliceblue;
         }
+
         header{
             display: flex;
             justify-content: space-between;
@@ -81,131 +83,122 @@
             color: white;
         }
 
+        #busqueda{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 50px;
+        }
+
         #biblioteca{
             display: flex;
-            flex-direction: column; /* Asegura que los elementos estén uno debajo del otro */
-            align-items: center; /* Centra horizontalmente los elementos */
-            justify-content: center; /* Centra verticalmente los elementos */
-            height: 80vh; /* Establece la altura de la sección según tus necesidades */
-            font-size: 20px;
-            padding-top: 350px;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding-top: 50px;
         }
 
         h1{
-            margin-top: 0;
-            font-size: 70px;
-            text-align: initial;
-            flex-direction: column;
-            justify-content: center;
-            padding-bottom: 30px;
-            margin: 0;
+            font-size: 40px;
+            margin-bottom: 20px;
         }
 
-
         table {
-        border-collapse: collapse;
-        width: 100%;
+            width: 100%;
+            color: white;
+        }
+
+        th {
+            background-color: #111;
+            color: white;
         }
 
         th, td {
-        border: 1px solid whitesmoke; /* Establece un borde sólido a las celdas */
-        padding: 8px;
-        text-align: left;
+            padding: 8px;
         }
 
-        #busqueda h1{
-            display: flex;
-            align-items: center;
-            text-align: center;
+        tr:nth-child(even) {
+            background-color: #222;
         }
 
-        #busqueda p{
-            display: flex;
-            align-items: center;
-            text-align: center;
-            font-size: 25px;
-            padding-bottom: 30px;
+        tr:hover {
+            background-color: #444;
         }
-        
-
     </style>
-    <head>
-        <title>Biblioteca digital con metadatos</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-        <body>
-            <header>
-                <div class="logo">
-                    <a href="#">Biblioteca Digital</a>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">Biblioteca Digital</a>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('agregar') }}">Agregar libro</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section id="busqueda">
+            <h1>Bienvenido a la biblioteca digital</h1>
+            <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
+            <form action="{{ url_for('index') }}" method="GET">
+                <div class="input-field">
+                    <input type="text" class="form-control" name="titulo" placeholder="Título" value="{{ titulo }}">
+                    <input type="text" class="form-control" name="autor" placeholder="Autor" value="{{ autor }}">
+                    <input type="text" class="form-control" name="fecha" placeholder="Fecha" value="{{ fecha }}">
+                    <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
+                    <input type="text" class="form-control" name="tipo_contenido" placeholder="Tipo Contenido" value="{{ tipo_contenido }}">
+                    <input type="text" class="form-control" name="palabras_clave" placeholder="Palabras Clave" value="{{ palabras_clave }}">
+                    <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" value="{{ descripcion }}">
+                    <input type="text" class="form-control" name="idioma" placeholder="idioma" value="{{ idioma }}">
+                    <input type="text" class="form-control" name="num_paginas" placeholder="num_paginas" value="{{ num_paginas }}">
+                    <input type="text" class="form-control" name="formato" placeholder="formato" value="{{ formato }}">
+                    <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
+                    <button type="submit" class="btn">Buscar</button>
                 </div>
-                <nav>
-                    <a href="{{ url_for('index') }}">Inicio</a>
-                    <a href="{{ url_for('agregar') }}">Agregar libro</a>
-                    <a href="{{ url_for('login') }}">Login</a>
-                </div>
-            </header>
-            <main>
-                <section id="busqueda">
-                    <h1>Bienvenido a la biblioteca digital</h1>
-                    <p>Esta biblioteca digital utiliza metadatos para facilitar la búsqueda y organización de la información.</p>
-                    <form action="{{ url_for('index') }}" method="GET">
-                        <div class="input-field">
-                            <input type="text" class="form-control" name="titulo" placeholder="Título" value="{{ titulo }}">
-                            <input type="text" class="form-control" name="autor" placeholder="Autor" value="{{ autor }}">
-                            <input type="text" class="form-control" name="fecha" placeholder="Fecha" value="{{ fecha }}">
-                            <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
-                            <input type="text" class="form-control" name="tipo_contenido" placeholder="Tipo Contenido" value="{{ tipo_contenido }}">
-                            <input type="text" class="form-control" name="palabras_clave" placeholder="Palabras Clave" value="{{ palabras_clave }}">
-                            <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" value="{{ descripcion }}">
-                            <input type="text" class="form-control" name="idioma" placeholder="idioma" value="{{ idioma }}">
-                            <input type="text" class="form-control" name="num_paginas" placeholder="num_paginas" value="{{ num_paginas }}">
-                            <input type="text" class="form-control" name="formato" placeholder="formato" value="{{ formato }}">
-                            <input type="text" class="form-control" name="tema" placeholder="Tema" value="{{ tema }}">
-                            <button type="submit" class="btn">Buscar</button>
-                        </div>
-                    </form>
-                </section>
-                <section id="biblioteca">
-                    <h1>Búsqueda de Libros</h1>
-                    <h2>Resultados:</h2>
-                    <table>
-                        <tr>
-                            <th>Título</th>
-                            <th>Autor</th>
-                            <th>Fecha</th>
-                            <th>Tema</th>
-                            <th>Tipo de Contenido</th>
-                            <th>Palabras Clave</th>
-                            <th>Descripción</th>
-                            <th>Idioma</th>
-                            <th>Licencia</th>
-                            <th>Número de Páginas</th>
-                            <th>Formato</th>
-                            <th>Acciones</th>
-                        </tr>
-                        {% for metadato in metadatos %}
-                        <tr>
-                            <td>{{ metadato[0] }}</td>
-                            <td>{{ metadato[1] }}</td>
-                            <td>{{ metadato[2] }}</td>
-                            <td>{{ metadato[3] }}</td>
-                            <td>{{ metadato[4] }}</td>
-                            <td>{{ metadato[5] }}</td>
-                            <td>{{ metadato[6] }}</td>
-                            <td>{{ metadato[7] }}</td>
-                            <td>{{ metadato[8] }}</td>
-                            <td>{{ metadato[9] }}</td>
-                            <td>{{ metadato[10] }}</td>
-                            <td>
-                                <a href="{{ url_for('editar', id=loop.index0) }}">Editar</a>
-                                <a href="{{ url_for('eliminar', id=loop.index0) }}">Eliminar</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-                    <a href="{{ url_for('agregar') }}">Agregar Metadatos</a>
-                </section>
-            </main>
-    </body>
+            </form>
+        </section>
+        <section id="biblioteca">
+            <h1>Búsqueda de Libros</h1>
+            <h2>Resultados:</h2>
+            <table>
+                <tr>
+                    <th>Título</th>
+                    <th>Autor</th>
+                    <th>Fecha</th>
+                    <th>Tema</th>
+                    <th>Tipo de Contenido</th>
+                    <th>Palabras Clave</th>
+                    <th>Descripción</th>
+                    <th>Idioma</th>
+                    <th>Licencia</th>
+                    <th>Número de Páginas</th>
+                    <th>Formato</th>
+                    <th>Acciones</th>
+                </tr>
+                {% for metadato in metadatos %}
+                <tr>
+                    <td>{{ metadato[0] }}</td>
+                    <td>{{ metadato[1] }}</td>
+                    <td>{{ metadato[2] }}</td>
+                    <td>{{ metadato[3] }}</td>
+                    <td>{{ metadato[4] }}</td>
+                    <td>{{ metadato[5] }}</td>
+                    <td>{{ metadato[6] }}</td>
+                    <td>{{ metadato[7] }}</td>
+                    <td>{{ metadato[8] }}</td>
+                    <td>{{ metadato[9] }}</td>
+                    <td>{{ metadato[10] }}</td>
+                    <td>
+                        <a href="{{ url_for('editar', id=loop.index0) }}">Editar</a>
+                        <a href="{{ url_for('eliminar', id=loop.index0) }}">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{{ url_for('agregar') }}">Agregar Metadatos</a>
+        </section>
+    </main>
+</body>
 </html>
