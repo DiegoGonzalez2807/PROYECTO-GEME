@@ -5,11 +5,14 @@ app = Flask(__name__)
 
 # Base de datos de usuarios quemados
 users = {'usuario1': 'contrasena1', 'usuario2': 'contraseña2', 'usuario3': 'contraseña3', 'usuario4': 'contraseña4', 'usuario5': 'contraseña5'}
-usersInfo = {'usuario1': {'nombre': 'Usuario 1', 'edad': 25, 'nacionalidad': 'México'}, 
-            'usuario2': {'nombre': 'Usuario 2', 'edad': 30, 'nacionalidad': 'España'}, 
-            'usuario3': {'nombre': 'Usuario 3', 'edad': 28, 'nacionalidad': 'Estados Unidos'}, 
-            'usuario4': {'nombre': 'Usuario 4', 'edad': 32, 'nacionalidad': 'Argentina'}, 
+usersInfo = {'usuario1': {'nombre': 'Usuario 1', 'edad': 25, 'nacionalidad': 'México'},
+            'usuario2': {'nombre': 'Usuario 2', 'edad': 30, 'nacionalidad': 'España'},
+            'usuario3': {'nombre': 'Usuario 3', 'edad': 28, 'nacionalidad': 'Estados Unidos'},
+            'usuario4': {'nombre': 'Usuario 4', 'edad': 32, 'nacionalidad': 'Argentina'},
             'usuario5': {'nombre': 'Usuario 5', 'edad': 27, 'nacionalidad': 'Brasil'}}
+
+# Arreglo para almacenar las búsquedas realizadas
+busquedas = []
 
 # Ruta de inicio de sesión
 @app.route('/login', methods=['GET', 'POST'])
@@ -48,7 +51,25 @@ def index():
     licencia = request.args.get('licencia', '')
     num_paginas = request.args.get('num_paginas', '')
     formato = request.args.get('formato', '')
-    
+
+    # Crear un diccionario con los valores de búsqueda
+    busqueda = {
+        'titulo': titulo,
+        'autor': autor,
+        'fecha': fecha,
+        'tema': tema,
+        'tipo_contenido': tipo_contenido,
+        'palabras_clave': palabras_clave,
+        'descripcion': descripcion,
+        'idioma': idioma,
+        'licencia': licencia,
+        'num_paginas': num_paginas,
+        'formato': formato
+    }
+
+    # Guardar la búsqueda en el arreglo
+    busquedas.append(busqueda)
+
     if titulo:
         metadatos = [row for row in metadatos if titulo.lower() in row[0].lower()]
     if autor:
@@ -71,13 +92,37 @@ def index():
         metadatos = [row for row in metadatos if num_paginas.lower() in row[9].lower()]
     if formato:
         metadatos = [row for row in metadatos if formato.lower() in row[10].lower()]
-    
+
     # Mostrar solo los primeros 10 metadatos
     metadatos = metadatos[:10]
-    # Renderizar la plantilla index.html con los metadatos filtrados y los tags correspondientes
+
+    # Obtener los temas más buscados
+    temas_buscados = {}
+
+    # Contar la frecuencia de cada tema en las búsquedas
+    for busqueda in busquedas:
+        tema = busqueda.get('tema')
+        if tema in temas_buscados:
+            temas_buscados[tema] += 1
+        else:
+            temas_buscados[tema] = 1
+
+    # Ordenar los temas por su frecuencia en orden descendente
+    temas_ordenados = sorted(temas_buscados.items(), key=lambda x: x[1], reverse=True)
+
+    # Obtener los dos temas más buscados
+    if len(temas_ordenados) >= 2:
+        tema_mas_buscado = temas_ordenados[0][0]
+        segundo_tema_mas_buscado = temas_ordenados[1][0]
+    else:
+        tema_mas_buscado = ""
+        segundo_tema_mas_buscado = ""
+
+    # Renderizar la plantilla index.html con los metadatos filtrados, los temas más buscados y los tags correspondientes
     return render_template('index.html', metadatos=metadatos, titulo=titulo, autor=autor, fecha=fecha, tema=tema,
                            tipo_contenido=tipo_contenido, palabras_clave=palabras_clave, descripcion=descripcion,
-                           idioma=idioma, licencia=licencia, num_paginas=num_paginas, formato=formato)
+                           idioma=idioma, licencia=licencia, num_paginas=num_paginas, formato=formato,
+                           tema_mas_buscado=tema_mas_buscado, segundo_tema_mas_buscado=segundo_tema_mas_buscado)
 
 # Ruta de la página para agregar metadatos
 @app.route('/agregar', methods=['GET', 'POST'])
@@ -158,4 +203,4 @@ def eliminar(id):
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

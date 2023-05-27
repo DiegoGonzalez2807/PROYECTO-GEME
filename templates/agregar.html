@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<head>
     <style>
         *{
             margin: 0;
@@ -13,6 +14,7 @@
             background-color: #232324;
             color: aliceblue;
         }
+
         header{
             display: flex;
             justify-content: space-between;
@@ -44,36 +46,43 @@
         main{
             padding-top: 10px;
         }
+
         main .container{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
+
         .input-field{
             position: relative;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .input-field label {
+            margin-bottom: 5px;
         }
 
         .input-field input {
-            width: 150px;
-            height: 60px;
+            width: 250px;
+            height: 30px;
             border-radius: 6px;
-            font-size: 18px;
-            padding: 0 15px;
+            font-size: 14px;
+            padding: 0 10px;
             border: 2px solid #fff;
-            background: white;
-            color: black;
             outline: none;
         }
 
         button{
             position: relative;
             width: 150px;
-            height: 60px;
+            height: 30px;
             border-radius: 6px;
-            font-size: 18px;
-            padding: 15px;
+            font-size: 14px;
+            margin-top: 10px;
         }
 
         button:hover{
@@ -83,50 +92,71 @@
             overflow: hidden;
             color: white;
         }
-
-        
     </style>
-    <head>
-        <title>Agregar metadatos</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-    <body>
-        <header>
-            <div class="logo">
-                <a href="#">Biblioteca Digital</a>
-            </div>
-            <nav>
-                <a href="{{ url_for('index') }}">Inicio</a>
-                <a href="{{ url_for('agregar') }}">Agregar libro</a>
-                <a href="{{ url_for('login') }}">Login</a>
-            </div>
-        </header>
-        <main>
-            <div class="container">
-                <h1>Agregar metadatos</h1>
-                <form method="POST">
-                    <div class="input-field">
-                        <div class="form-group">
-                            <label for="titulo">Título</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="autor">Autor</label>
-                            <input type="text" class="form-control" id="autor" name="autor" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha">Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="tema">Tema</label>
-                            <input type="text" class="form-control" id="tema" name="tema" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Agregar</button>
-                    </div> 
-                </form>
-            </div>
-        </main>
-    </body>
+    <title>Agregar metadatos</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">Biblioteca Digital</a>
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}">Inicio</a>
+            <a href="{{ url_for('agregar') }}">Agregar libro</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <h1>Agregar metadatos</h1>
+            <form method="POST" action="{{ url_for('agregar') }}">
+                <div class="input-field">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" required>
+                </div>
+                <div class="input-field">
+                    <label for="autor">Autor</label>
+                    <input type="text" id="autor" name="autor" required>
+                </div>
+                <div class="input-field">
+                    <label for="fecha">Fecha</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                </div>
+                <div class="input-field">
+                    <label for="tema">Tema</label>
+                    <input type="text" id="tema" name="tema" required>
+                </div>
+                <div class="input-field">
+                    <label for="tipo_contenido">Tipo de contenido</label>
+                    <input type="text" id="tipo_contenido" name="tipo_contenido" required>
+                </div>
+                <div class="input-field">
+                    <label for="palabras_clave">Palabras clave</label>
+                    <input type="text" id="palabras_clave" name="palabras_clave" required>
+                </div>
+                <div class="input-field">
+                    <label for="descripcion">Descripción</label>
+                    <input type="text" id="descripcion" name="descripcion" required>
+                </div>
+                <div class="input-field">
+                    <label for="idioma">Idioma</label>
+                    <input type="text" id="idioma" name="idioma" required>
+                </div>
+                <div class="input-field">
+                    <label for="licencia">Licencia</label>
+                    <input type="text" id="licencia" name="licencia" required>
+                </div>
+                <div class="input-field">
+                    <label for="num_paginas">Número de páginas</label>
+                    <input type="text" id="num_paginas" name="num_paginas" required>
+                </div>
+                <div class="input-field">
+                    <label for="formato">Formato</label>
+                    <input type="text" id="formato" name="formato" required>
+                </div>
+                <button type="submit">Agregar</button>
+            </form>
+        </div>
+    </main>
+</body>
 </html>

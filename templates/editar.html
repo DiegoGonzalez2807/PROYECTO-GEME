@@ -98,12 +98,12 @@
                 <a href="{{ url_for('index') }}">Inicio</a>
                 <a href="{{ url_for('agregar') }}">Agregar libro</a>
                 <a href="{{ url_for('login') }}">Login</a>
-            </div>
+            </nav>
         </header>
         <main>
             <div class="container">
                 <h1>Editar metadatos</h1>
-                <form method="POST">
+                <form method="POST" action="{{ url_for('editar', id=id) }}">
                     <div class="input-field">
                         <div class="form-group">
                             <label for="titulo">Título</label>
@@ -120,6 +120,34 @@
                         <div class="form-group">
                             <label for="tema">Tema</label>
                             <input type="text" class="form-control" id="tema" name="tema" value="{{ metadato[3] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo_contenido">Tipo de contenido</label>
+                            <input type="text" class="form-control" id="tipo_contenido" name="tipo_contenido" value="{{ metadato[4] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="palabras_clave">Palabras clave</label>
+                            <input type="text" class="form-control" id="palabras_clave" name="palabras_clave" value="{{ metadato[5] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripción</label>
+                            <input type="text" class="form-control" id="descripcion" name="descripcion" value="{{ metadato[6] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="idioma">Idioma</label>
+                            <input type="text" class="form-control" id="idioma" name="idioma" value="{{ metadato[7] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="licencia">Licencia</label>
+                            <input type="text" class="form-control" id="licencia" name="licencia" value="{{ metadato[8] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="num_paginas">Número de páginas</label>
+                            <input type="number" class="form-control" id="num_paginas" name="num_paginas" value="{{ metadato[9] }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="formato">Formato</label>
+                            <input type="text" class="form-control" id="formato" name="formato" value="{{ metadato[10] }}" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar cambios</button>
                     </div>
